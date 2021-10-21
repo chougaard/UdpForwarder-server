@@ -1,0 +1,16 @@
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.exe
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.deps.json
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.runtimeconfig.json
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.runtimeconfig.dev.json
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.dll
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\ref\udpForwarderClient.dll
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\bin\Debug\net5.0\udpForwarderClient.pdb
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.csproj.AssemblyReference.cache
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.AssemblyInfoInputs.cache
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.AssemblyInfo.cs
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.csproj.CoreCompileInputs.cache
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.dll
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\ref\udpForwarderClient.dll
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.pdb
+C:\Users\Casper\git\udpForwarder\udpForwarderClient\obj\Debug\net5.0\udpForwarderClient.genruntimeconfig.cache
