@@ -35,9 +35,15 @@ namespace udpForwarderClient
 
                     await client.SendAsync(data, data.Length);
 
+                    var telemetryClient = new UdpClient();
+
+                    telemetryClient.Connect("127.0.0.1", 9995);
                     while (true)
                     {
                         var packet = await client.ReceiveAsync();
+
+
+                        await telemetryClient.SendAsync(packet.Buffer, packet.Buffer.Length);
 
                         Console.WriteLine($"Received Packet, sized {packet.Buffer.Length}");
                     }
