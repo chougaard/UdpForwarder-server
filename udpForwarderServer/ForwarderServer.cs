@@ -9,57 +9,36 @@ namespace udpForwarder
 {
     public class ForwarderServer
     {
-        private Socket _socket;
         private Publisher _pub;
-
-        private UdpClient _client;
 
         public ForwarderServer(Publisher pub)
         {
-
-            this._socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             this._pub = pub;
         }
 
         private List<Subscriber> subscribers = new List<Subscriber>();
+        private UdpClient _listener;
 
-        public async Task StartServerAsync(string address, int port, Publisher pub)
+        public void StartServerAsync(string address, int port, Publisher pub)
         {
             try
             {
-
-                var ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
-
-
-                // _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.ReuseAddress, true);
-                // _socket.Bind(new IPEndPoint(IPAddress.Parse(address), port));
-
-                var listener = new UdpClient(port);
+                this._listener = new UdpClient(port);
                 
-                
-                // Console.WriteLine(_client.Client.LocalEndPoint.ToString());
-
                 while (true)
                 {
-                    // _socket.Listen(100);
-                    // var newConnectionSocket = await _socket.AcceptAsync();
                     var groupEP = new IPEndPoint(IPAddress.Any, port);
-                    var data = listener.Receive(ref groupEP);
-
-                    // var sender = new IPEndPoint(IPAddress.Any, 0);
-                    // var data = client.Receive(ref sender);
+                    var data = this._listener.Receive(ref groupEP);
 
                     var sub = new Subscriber(pub);
-                    sub.Setup(listener.Client, groupEP);
+                    sub.Setup(this._listener.Client, groupEP);
 
                     subscribers.Add(sub);
                 }
             }
             catch (System.Exception ex)
             {
-
-                _socket.Close();
-
+                this._listener.Close();
                 throw ex;
             }
         }

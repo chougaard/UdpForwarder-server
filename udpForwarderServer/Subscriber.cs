@@ -30,15 +30,11 @@ namespace udpForwarder
         {
             try
             {
-                Console.WriteLine($"Send to socket {this.subscriberSocket.ToString()}");
-                // var args = new SocketAsyncEventArgs();
-                // args.SetBuffer(msg.Content);
-
                 var t = this.subscriberSocket.SendAsync(msg.Content, msg.ContentLength, ep);
             }
             catch (System.Exception ex)
             {
-
+                subscriberSocket.Close();
                 throw ex;
             }
 
