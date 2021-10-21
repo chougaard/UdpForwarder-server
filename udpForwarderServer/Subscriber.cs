@@ -1,10 +1,13 @@
 using System;
+using System.Net;
 using System.Net.Sockets;
 
 namespace udpForwarder
 {
     public class Subscriber
     {
+        private IPEndPoint ep;
+
         public IPublisher Publisher { get; set; }
 
         private UdpClient subscriberSocket { get; set; }
@@ -14,9 +17,11 @@ namespace udpForwarder
             Publisher = publisher;
         }
 
-        public void Setup(UdpClient newConnectionSocket)
+        public void Setup(Socket newConnectionSocket, System.Net.IPEndPoint groupEP)
         {
-            this.subscriberSocket = newConnectionSocket;
+            this.subscriberSocket = new UdpClient();
+            this.subscriberSocket.Client = newConnectionSocket;
+            this.ep = groupEP;
 
             this.Publisher.Handler += OnPublish;
         }
@@ -29,7 +34,7 @@ namespace udpForwarder
                 // var args = new SocketAsyncEventArgs();
                 // args.SetBuffer(msg.Content);
 
-                var t = this.subscriberSocket.SendAsync(msg.Content, msg.ContentLength);
+                var t = this.subscriberSocket.SendAsync(msg.Content, msg.ContentLength, ep);
             }
             catch (System.Exception ex)
             {

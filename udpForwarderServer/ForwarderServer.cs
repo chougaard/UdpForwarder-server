@@ -30,22 +30,27 @@ namespace udpForwarder
 
                 var ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
 
-                this._client = new UdpClient(ipep);
-                Console.WriteLine(_client.Client.LocalEndPoint.ToString());
-                
+
                 // _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.ReuseAddress, true);
                 // _socket.Bind(new IPEndPoint(IPAddress.Parse(address), port));
+
+                var listener = new UdpClient(port);
+                
+                
+                // Console.WriteLine(_client.Client.LocalEndPoint.ToString());
 
                 while (true)
                 {
                     // _socket.Listen(100);
                     // var newConnectionSocket = await _socket.AcceptAsync();
+                    var groupEP = new IPEndPoint(IPAddress.Any, port);
+                    var data = listener.Receive(ref groupEP);
 
-                    var sender = new IPEndPoint(IPAddress.Any, 0);
-                    var data =  _client.Receive(ref sender);
-                    
+                    // var sender = new IPEndPoint(IPAddress.Any, 0);
+                    // var data = client.Receive(ref sender);
+
                     var sub = new Subscriber(pub);
-                    sub.Setup(_client);
+                    sub.Setup(listener.Client, groupEP);
 
                     subscribers.Add(sub);
                 }
