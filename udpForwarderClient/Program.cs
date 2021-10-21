@@ -16,32 +16,23 @@ namespace udpForwarderClient
             {
                 try
                 {
-
-
                     Console.WriteLine("Forwarder Client started!");
-
-                    var ip = "127.0.0.1";
-
-                    // var server = new UDPSocket();
-
-                    // await server.Connect("127.0.0.1", 8881);
-
+                    
                     var client = new UdpClient();
-
                     client.Connect("127.0.0.1", 8881);
+                    
+                    var ready = Encoding.ASCII.GetBytes("READY");
 
-                    string welcome = "Welcome to my test server";
-                    var data = Encoding.ASCII.GetBytes(welcome);
+                    //Connect to Server and signal ready
+                    await client.SendAsync(ready, ready.Length);
 
-                    await client.SendAsync(data, data.Length);
-
+                    //Prepare to send data to telemetry software
                     var telemetryClient = new UdpClient();
-
                     telemetryClient.Connect("127.0.0.1", 9995);
+
                     while (true)
                     {
                         var packet = await client.ReceiveAsync();
-
 
                         await telemetryClient.SendAsync(packet.Buffer, packet.Buffer.Length);
 
@@ -51,40 +42,12 @@ namespace udpForwarderClient
                 }
                 catch (System.Exception e)
                 {
-
                     throw e;
                 }
 
             });
 
             Console.Read();
-        }
-    }
-
-
-    public class UDPSocket
-    {
-        private Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-
-        private const int bufSize = 8 * 1024;
-
-        public UDPSocket()
-        {
-
-        }
-
-        public async Task Connect(string ip, int port)
-        {
-            await _socket.ConnectAsync(IPAddress.Parse(ip), port);
-
-            var e = new SocketAsyncEventArgs();
-            var buffer = new ArraySegment<byte>();
-
-            var b = new byte[bufSize];
-
-            await _socket.ReceiveAsync(b, SocketFlags.None);
-
-            Console.WriteLine($"Received from socket size: {b.Length}");
         }
     }
 }
