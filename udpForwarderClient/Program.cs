@@ -9,9 +9,19 @@ namespace udpForwarderClient
     class Program
     {
 
+        private static string telemetryClientIP;
+        private static int telemetryClientPort;
+        private static string udpServerIP;
+        private static int udpServerPort;
 
         static void Main(string[] args)
         {
+            telemetryClientIP = "127.0.0.1";
+            telemetryClientPort = 9995;
+
+            udpServerIP = "127.0.0.1";
+            udpServerPort = 8881;
+
             Task.Run(async () =>
             {
                 try
@@ -19,7 +29,7 @@ namespace udpForwarderClient
                     Console.WriteLine("Forwarder Client started!");
                     
                     var client = new UdpClient();
-                    client.Connect("127.0.0.1", 8881);
+                    client.Connect(udpServerIP, udpServerPort);
                     
                     var ready = Encoding.ASCII.GetBytes("READY");
 
@@ -28,7 +38,7 @@ namespace udpForwarderClient
 
                     //Prepare to send data to telemetry software
                     var telemetryClient = new UdpClient();
-                    telemetryClient.Connect("127.0.0.1", 9995);
+                    telemetryClient.Connect(telemetryClientIP, telemetryClientPort);
 
                     while (true)
                     {
