@@ -48,7 +48,9 @@ namespace udpForwarder
                 // subscriberSocket.Close();
                 this._stream.Close();
                 this._subscriberClient.Close();
-                throw ex;
+                
+                this.Publisher.Handler -= OnPublish;
+                // throw ex;
             }
 
         }
