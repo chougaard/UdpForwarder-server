@@ -16,14 +16,14 @@ namespace udpForwarder
 
             var t = new Thread(() =>
             {
-                forwarderServer.StartServerAsync("127.0.0.1", 8881, pub);
+                forwarderServer.StartServerAsync("192.168.1.95", 8881, pub);
             });
             t.Start();
 
             var t2 = new Thread(() =>
             {
                 UDPSocket ACCRelayServer = new UDPSocket();
-                ACCRelayServer.Server("127.0.0.1", 9996, pub);
+                ACCRelayServer.Server("127.0.0.1", 9991, pub);
             });
             t2.Start();
 
