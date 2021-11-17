@@ -17,28 +17,35 @@ namespace udpForwarder
         }
 
         private List<Subscriber> subscribers = new List<Subscriber>();
-        private UdpClient _listener;
+        private TcpListener _listener;
+
+        private IPAddress _serverIp;
 
         public void StartServerAsync(string address, int port, Publisher pub)
         {
+            this._serverIp = IPAddress.Parse(address);
             try
             {
-                this._listener = new UdpClient(port);
+                this._listener = new TcpListener(_serverIp, port);
+
+                this._listener.Start();
                 
                 while (true)
                 {
-                    var groupEP = new IPEndPoint(IPAddress.Any, port);
-                    var data = this._listener.Receive(ref groupEP);
+                    //var groupEP = new IPEndPoint(IPAddress.Any, port);
+                    Console.WriteLine("Await connection");
+                    var client = this._listener.AcceptTcpClient();
+                    Console.WriteLine("Client Connected");
 
                     var sub = new Subscriber(pub);
-                    sub.Setup(this._listener.Client, groupEP);
+                    sub.Setup(client);
 
                     subscribers.Add(sub);
                 }
             }
             catch (System.Exception ex)
             {
-                this._listener.Close();
+                this._listener.Stop();
                 throw ex;
             }
         }
