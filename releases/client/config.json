@@ -1,0 +1,7 @@
+{
+    "telemetryClientIP": "127.0.0.1",
+    "telemetryClientPort": 9995,
+    "serverIP": "192.168.1.95",
+    "serverPort": 8881,
+    "IsInitialized": true
+}

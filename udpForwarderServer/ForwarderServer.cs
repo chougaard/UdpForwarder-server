@@ -26,7 +26,8 @@ namespace udpForwarder
             this._serverIp = IPAddress.Parse(address);
             try
             {
-                this._listener = new TcpListener(_serverIp, port);
+                // this._listener = new TcpListener(_serverIp, port);
+                this._listener = new TcpListener(IPAddress.Any, port);
 
                 this._listener.Start();
                 
@@ -46,7 +47,10 @@ namespace udpForwarder
             catch (System.Exception ex)
             {
                 this._listener.Stop();
-                throw ex;
+
+                Console.WriteLine(ex);
+                Console.WriteLine("Starting server TCP connection failed");
+                Console.ReadLine();
             }
         }
     }

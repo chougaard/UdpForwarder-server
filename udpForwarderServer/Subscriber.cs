@@ -24,16 +24,6 @@ namespace udpForwarder
             this._subscriberClient = client;
             this.Publisher.Handler += OnPublish;
         }
-
-        // public void Setup(Socket newConnectionSocket, System.Net.IPEndPoint groupEP)
-        // {
-        //     this.subscriberSocket = new UdpClient();
-        //     this.subscriberSocket.Client = newConnectionSocket;
-        //     this.ep = groupEP;
-
-        //     this.Publisher.Handler += OnPublish;
-        // }
-
         private void OnPublish(object sender, Message msg)
         {
             try
@@ -45,12 +35,11 @@ namespace udpForwarder
             }
             catch (System.Exception ex)
             {
-                // subscriberSocket.Close();
+                Console.WriteLine("Client disconnected");
                 this._stream.Close();
                 this._subscriberClient.Close();
                 
                 this.Publisher.Handler -= OnPublish;
-                // throw ex;
             }
 
         }
